@@ -1,0 +1,68 @@
+[gd_scene load_steps=10 format=3 uid="uid://ck50lcsmf0vkg"]
+
+[ext_resource type="Script" path="res://SCENES/objects/character_body_2d.gd" id="1_gshi5"]
+[ext_resource type="Texture2D" uid="uid://cjl46ysb5ytdr" path="res://assets/sprites/caja.png" id="2_08uxj"]
+[ext_resource type="Gradient" uid="uid://cfocuihh7iaca" path="res://SCENES/levels/luz.tres" id="2_g6c5a"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_y6fno"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_lxxbu"]
+offsets = PackedFloat32Array(0, 0.560714, 0.603571)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yr0y0"]
+gradient = SubResource("Gradient_lxxbu")
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_cjnk2"]
+blend_mode = 1
+light_mode = 2
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xbnc7"]
+gradient = ExtResource("2_g6c5a")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ak1wk"]
+size = Vector2(93, 68)
+
+[node name="BOX" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." groups=["pusheable", "pusheable_global"]]
+collision_layer = 4
+collision_mask = 15
+script = ExtResource("1_gshi5")
+
+[node name="luz object" type="PointLight2D" parent="CharacterBody2D"]
+material = SubResource("CanvasItemMaterial_y6fno")
+position = Vector2(41.315, 16.42)
+scale = Vector2(1.08391, 0.794375)
+color = Color(0.336147, 0.203084, 0.000222942, 1)
+energy = 0.3
+texture = SubResource("GradientTexture2D_yr0y0")
+texture_scale = 1.11
+height = 4.0
+
+[node name="luz vol" type="Sprite2D" parent="CharacterBody2D"]
+modulate = Color(0.858824, 0.623529, 0.0901961, 0.65098)
+self_modulate = Color(0.619608, 0.619608, 0.619608, 0.588235)
+z_index = 8
+material = SubResource("CanvasItemMaterial_cjnk2")
+position = Vector2(39, 18)
+scale = Vector2(4.40312, 4.23)
+texture = SubResource("GradientTexture2D_xbnc7")
+
+[node name="box" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(41, 12)
+scale = Vector2(1.07406, 0.9325)
+texture = ExtResource("2_08uxj")
+hframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(41.5, 15)
+shape = SubResource("RectangleShape2D_ak1wk")

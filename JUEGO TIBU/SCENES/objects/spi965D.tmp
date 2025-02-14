@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://jm3yfrqs1f0t"]
+
+[ext_resource type="Script" path="res://scripts/objects/spinblade.gd" id="1_p0ah3"]
+[ext_resource type="Texture2D" uid="uid://b648qgonxpeq" path="res://assets/sprites/OBSTACULES/SpinbladeTurret.png" id="2_dbsja"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fux6u"]
+atlas = ExtResource("2_dbsja")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1v40j"]
+atlas = ExtResource("2_dbsja")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_36j7q"]
+atlas = ExtResource("2_dbsja")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0wmtx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fux6u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1v40j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_36j7q")
+}],
+"loop": true,
+"name": &"spinblade",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g5vvd"]
+size = Vector2(24, 1)
+
+[node name="Spinblade" type="Node2D"]
+
+[node name="Spinblade" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 3
+script = ExtResource("1_p0ah3")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Spinblade"]
+sprite_frames = SubResource("SpriteFrames_0wmtx")
+animation = &"spinblade"
+frame_progress = 0.0581779
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spinblade"]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_g5vvd")
+
+[node name="DamageTimer" type="Timer" parent="."]

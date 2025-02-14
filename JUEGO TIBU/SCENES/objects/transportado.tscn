@@ -1,0 +1,58 @@
+[gd_scene load_steps=9 format=3 uid="uid://getmw7e78r4k"]
+
+[ext_resource type="Texture2D" uid="uid://dft3km40w8fis" path="res://assets/sprites/base_move.png" id="1_2qpon"]
+[ext_resource type="Script" path="res://scripts/objects/plataforma.gd" id="1_j5vy0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hisyv"]
+size = Vector2(75, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tkd2u"]
+atlas = ExtResource("1_2qpon")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_72cyg"]
+atlas = ExtResource("1_2qpon")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2s26f"]
+atlas = ExtResource("1_2qpon")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k5js1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tkd2u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_72cyg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2s26f")
+}],
+"loop": true,
+"name": &"flotando",
+"speed": 6.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_jlpje"]
+script/source = "extends AnimatedSprite2D
+"
+
+[node name="Node2D" type="Node2D"]
+
+[node name="plataforma" type="CharacterBody2D" parent="." groups=["moving_platform"]]
+collision_layer = 8
+collision_mask = 15
+script = ExtResource("1_j5vy0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="plataforma"]
+position = Vector2(1.5, -8)
+shape = SubResource("RectangleShape2D_hisyv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="plataforma/CollisionShape2D"]
+position = Vector2(-1.5, 8)
+sprite_frames = SubResource("SpriteFrames_k5js1")
+animation = &"flotando"
+frame_progress = 0.736286
+script = SubResource("GDScript_jlpje")

@@ -1,0 +1,90 @@
+[gd_scene load_steps=10 format=3 uid="uid://qlmruj6clx46"]
+
+[ext_resource type="Script" path="res://scripts/systems/level_manager.gd" id="1_3ad68"]
+[ext_resource type="PackedScene" uid="uid://x4yei2onj14" path="res://SCENES/levels/Level1.tscn" id="1_jxsnx"]
+[ext_resource type="PackedScene" uid="uid://46fj3w4t51qs" path="res://SCENES/ui/transition.tscn" id="1_o8hpl"]
+[ext_resource type="Script" path="res://SCENES/ui/canvas_layer.gd" id="2_frtvv"]
+[ext_resource type="Texture2D" uid="uid://b2u6kfb2lr6vk" path="res://assets/sprites/tile_0132.png" id="3_yqugj"]
+[ext_resource type="Texture2D" uid="uid://cb7jhp2rglcnp" path="res://assets/sprites/cascopts.png" id="4_egjjb"]
+[ext_resource type="PackedScene" uid="uid://ccqoxqinccvii" path="res://SCENES/characters/PLAYER.tscn" id="5_j35dx"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_h726a"]
+font_size = 25
+
+[sub_resource type="LabelSettings" id="LabelSettings_s1f3b"]
+font_size = 25
+
+[node name="GAME" type="Node2D"]
+
+[node name="Transition" parent="." instance=ExtResource("1_o8hpl")]
+
+[node name="LevelManager" type="Node2D" parent="."]
+script = ExtResource("1_3ad68")
+
+[node name="Level1" parent="LevelManager" instance=ExtResource("1_jxsnx")]
+
+[node name="GUI" type="CanvasLayer" parent="."]
+script = ExtResource("2_frtvv")
+
+[node name="Control" type="Control" parent="GUI"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 854.0
+offset_bottom = 473.0
+
+[node name="rojo" type="ColorRect" parent="GUI/Control"]
+visible = false
+layout_mode = 0
+offset_right = 854.0
+offset_bottom = 483.0
+color = Color(0.835294, 0, 0.282353, 0.258824)
+
+[node name="ColorRect" type="ColorRect" parent="GUI/Control"]
+layout_mode = 0
+offset_right = 196.0
+offset_bottom = 40.0
+color = Color(0, 0, 0, 0.141176)
+
+[node name="Label" type="Label" parent="GUI/Control"]
+layout_mode = 0
+offset_left = 55.0
+offset_right = 93.0
+offset_bottom = 35.0
+text = "3
+"
+label_settings = SubResource("LabelSettings_h726a")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="puntos" type="Label" parent="GUI/Control"]
+layout_mode = 0
+offset_left = 135.0
+offset_right = 175.0
+offset_bottom = 35.0
+text = "0
+"
+label_settings = SubResource("LabelSettings_s1f3b")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="GUI/Control"]
+position = Vector2(41, 20)
+scale = Vector2(4.1875, 4.1875)
+texture = ExtResource("3_yqugj")
+
+[node name="Sprite2D2" type="Sprite2D" parent="GUI/Control"]
+position = Vector2(117, 16)
+scale = Vector2(0.69, 0.69)
+texture = ExtResource("4_egjjb")
+
+[node name="player" parent="." groups=["player"] instance=ExtResource("5_j35dx")]
+position = Vector2(-543, 406)
+
+[node name="settings" type="Node2D" parent="."]
+position = Vector2(420, 133)
+
+[node name="COLOR NIVEL" type="CanvasModulate" parent="settings"]
+color = Color(0.26536, 0.265361, 0.26536, 1)
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="settings/COLOR NIVEL"]
+color = Color(0.0223994, 0.0892036, 0.259781, 1)
