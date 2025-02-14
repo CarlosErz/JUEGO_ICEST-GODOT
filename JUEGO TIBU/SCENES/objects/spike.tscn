@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://bno41s4ioqtsr"]
+
+[ext_resource type="Script" path="res://scripts/objects/spike.gd" id="1_l2f3w"]
+[ext_resource type="Texture2D" uid="uid://dymuxyp1jxswv" path="res://assets/sprites/OBSTACULES/Spikes.png" id="2_0klei"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wm1wq"]
+atlas = ExtResource("2_0klei")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mburb"]
+atlas = ExtResource("2_0klei")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tkjju"]
+atlas = ExtResource("2_0klei")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5q2pl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wm1wq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mburb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tkjju")
+}],
+"loop": true,
+"name": &"SHOW_PINCHOS",
+"speed": 3.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_akem0"]
+size = Vector2(39, 9)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Spikes" type="Area2D" parent="."]
+position = Vector2(9, 3)
+collision_layer = 16
+collision_mask = 3
+script = ExtResource("1_l2f3w")
+
+[node name="animacion_pinchos" type="AnimatedSprite2D" parent="Spikes"]
+position = Vector2(-2, -9)
+scale = Vector2(1.66406, 1.66406)
+sprite_frames = SubResource("SpriteFrames_5q2pl")
+animation = &"SHOW_PINCHOS"
+frame_progress = 0.0762178
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spikes"]
+shape = SubResource("RectangleShape2D_akem0")

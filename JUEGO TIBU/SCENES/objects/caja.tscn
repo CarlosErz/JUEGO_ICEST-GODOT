@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://bcjtkjktjxl8x"]
+
+[ext_resource type="Script" path="res://scripts/objects/caja.gd" id="1_qmjx7"]
+[ext_resource type="Texture2D" uid="uid://cjl46ysb5ytdr" path="res://assets/sprites/caja.png" id="2_8xcsi"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2322t"]
+friction = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gwaw7"]
+size = Vector2(83, 66.5)
+
+[node name="Node2D" type="Node2D" groups=["box_colish"]]
+
+[node name="caja" type="RigidBody2D" parent="."]
+position = Vector2(-22, 56.25)
+collision_layer = 4
+collision_mask = 3
+mass = 0.006
+physics_material_override = SubResource("PhysicsMaterial_2322t")
+gravity_scale = -4.87
+center_of_mass_mode = 1
+sleeping = true
+lock_rotation = true
+freeze = true
+script = ExtResource("1_qmjx7")
+
+[node name="Sprite2D" type="Sprite2D" parent="caja"]
+position = Vector2(23, -22.25)
+scale = Vector2(1.07406, 0.9325)
+texture = ExtResource("2_8xcsi")
+hframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="caja"]
+position = Vector2(21.5, -17)
+shape = SubResource("RectangleShape2D_gwaw7")
+
+[node name="ColorRect" type="ColorRect" parent="caja"]
+offset_left = -19.0
+offset_top = -50.0
+offset_right = 63.0
+offset_bottom = 15.0
+color = Color(1, 0.408246, 0.749639, 1)

@@ -1,0 +1,91 @@
+[gd_scene load_steps=12 format=3 uid="uid://bhw54kd8fqjbu"]
+
+[ext_resource type="Script" path="res://scripts/objects/cannon.gd" id="1_ul1i4"]
+[ext_resource type="PackedScene" uid="uid://cgj4niubrm2i3" path="res://SCENES/objects/bullet.tscn" id="2_eceoa"]
+[ext_resource type="Texture2D" uid="uid://cixyl863diheh" path="res://assets/sprites/OBSTACULES/Cannon.png" id="2_x2fou"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tft8a"]
+atlas = ExtResource("2_x2fou")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ty82"]
+atlas = ExtResource("2_x2fou")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wp705"]
+atlas = ExtResource("2_x2fou")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g57ce"]
+atlas = ExtResource("2_x2fou")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mm2so"]
+atlas = ExtResource("2_x2fou")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_45gob"]
+atlas = ExtResource("2_x2fou")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0d71r"]
+atlas = ExtResource("2_x2fou")
+region = Rect2(288, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t83fb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tft8a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ty82")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wp705")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g57ce")
+}],
+"loop": true,
+"name": &"RELOAD",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g57ce")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mm2so")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_45gob")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0d71r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g57ce")
+}],
+"loop": true,
+"name": &"SHOOT",
+"speed": 7.0
+}]
+
+[node name="cannon" type="Node2D"]
+position = Vector2(102, 66)
+script = ExtResource("1_ul1i4")
+bullet_scene = ExtResource("2_eceoa")
+
+[node name="ShootTimer" type="Timer" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(7, 0)
+scale = Vector2(-0.979603, 1)
+sprite_frames = SubResource("SpriteFrames_t83fb")
+animation = &"SHOOT"
+frame_progress = 0.938156
+
+[node name="ShootPoint" type="Marker2D" parent="."]
+position = Vector2(0, 2)
+scale = Vector2(4, 4)
