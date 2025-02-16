@@ -1,0 +1,62 @@
+[gd_scene load_steps=9 format=3 uid="uid://rhsopmdl70or"]
+
+[ext_resource type="Script" path="res://scripts/objects/bubble.gd" id="1_v8d6k"]
+[ext_resource type="Texture2D" uid="uid://kts6adfikfu7" path="res://assets/sprites/BURBUJA_HABILITY.png" id="2_85mbi"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ukqi8"]
+radius = 16.0
+height = 32.0
+
+[sub_resource type="Gradient" id="Gradient_smi87"]
+offsets = PackedFloat32Array(0, 0.35)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ggdk7"]
+gradient = SubResource("Gradient_smi87")
+fill = 1
+fill_from = Vector2(0.529915, 0.498576)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4378v"]
+blend_mode = 1
+light_mode = 2
+
+[sub_resource type="Gradient" id="Gradient_7lbiy"]
+offsets = PackedFloat32Array(0, 0.328571, 0.617857)
+colors = PackedColorArray(0.415686, 0.498039, 1, 1, 0.0748206, 0.0798773, 0.110699, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_can2x"]
+gradient = SubResource("Gradient_7lbiy")
+width = 40
+height = 40
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="BubblePickup" type="Node2D"]
+
+[node name="BUBBLE" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 2
+script = ExtResource("1_v8d6k")
+
+[node name="Bubble" type="Sprite2D" parent="BUBBLE"]
+position = Vector2(-1.00001, -0.999992)
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("2_85mbi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BUBBLE"]
+position = Vector2(0, -1)
+shape = SubResource("CapsuleShape2D_ukqi8")
+
+[node name="PointLight2D" type="PointLight2D" parent="BUBBLE"]
+position = Vector2(2.38419e-07, -5.96046e-08)
+texture = SubResource("GradientTexture2D_ggdk7")
+texture_scale = 7.3
+
+[node name="luz vol" type="Sprite2D" parent="BUBBLE"]
+modulate = Color(1, 1, 1, 0.243137)
+self_modulate = Color(0.619608, 0.619608, 0.619608, 0.505882)
+z_index = 8
+material = SubResource("CanvasItemMaterial_4378v")
+position = Vector2(1, -2.38419e-07)
+scale = Vector2(4.40312, 4.23)
+texture = SubResource("GradientTexture2D_can2x")
