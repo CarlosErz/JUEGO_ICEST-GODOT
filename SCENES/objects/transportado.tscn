@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/objects/plataforma.gd" id="1_j5vy0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hisyv"]
-size = Vector2(75, 15)
+size = Vector2(80, 18.5)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tkd2u"]
 atlas = ExtResource("1_2qpon")
@@ -47,11 +47,11 @@ collision_mask = 15
 script = ExtResource("1_j5vy0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="plataforma"]
-position = Vector2(1.5, -8)
+position = Vector2(1, -6.25)
 shape = SubResource("RectangleShape2D_hisyv")
+one_way_collision = true
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="plataforma/CollisionShape2D"]
-position = Vector2(-1.5, 8)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="plataforma"]
 sprite_frames = SubResource("SpriteFrames_k5js1")
 animation = &"flotando"
 frame_progress = 0.736286
