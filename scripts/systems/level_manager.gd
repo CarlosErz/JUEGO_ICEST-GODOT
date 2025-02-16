@@ -9,7 +9,7 @@ var niveles_folder = "res://SCENES/levels/"
 var niveles = ["Level0.tscn","Level1.tscn", "Level2.tscn"]  # Agrega más niveles aquí
 
 # Índice del nivel actual
-var nivel_actual = 0
+var nivel_actual = 2
 
 # Referencia al jugador
 var jugador

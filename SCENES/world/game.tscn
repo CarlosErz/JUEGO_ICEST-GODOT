@@ -107,7 +107,7 @@ position = Vector2(-3609, 471)
 position = Vector2(420, 142.415)
 
 [node name="COLOR NIVEL" type="CanvasModulate" parent="settings"]
-color = Color(0.26536, 0.265361, 0.26536, 1)
+color = Color(0.193153, 0.193154, 0.193153, 1)
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="settings/COLOR NIVEL"]
 position = Vector2(0, 49.585)
