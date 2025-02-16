@@ -1,8 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://dya80oi4k4gi0"]
+[gd_scene load_steps=11 format=3 uid="uid://dya80oi4k4gi0"]
 
 [ext_resource type="Script" path="res://scripts/ui/star_menu.gd" id="1_2676o"]
 [ext_resource type="PackedScene" uid="uid://ccqoxqinccvii" path="res://SCENES/characters/PLAYER.tscn" id="2_81y5u"]
-[ext_resource type="Texture2D" uid="uid://bfmy4sr7kw0sy" path="res://bg/layers/sky.png" id="3_5hpi0"]
 [ext_resource type="Texture2D" uid="uid://deccx3uappssy" path="res://bg/layers/layers2/ground_3.png" id="4_kpik3"]
 [ext_resource type="Texture2D" uid="uid://ovkyiatfq4hg" path="res://assets/sprites/UI/image 1.png" id="5_xf56w"]
 [ext_resource type="Texture2D" uid="uid://72h5ttqmqixo" path="res://assets/sprites/UI/PLAY.png" id="6_3r4d4"]
@@ -10,42 +9,49 @@
 [ext_resource type="PackedScene" uid="uid://getmw7e78r4k" path="res://SCENES/objects/transportado.tscn" id="8_2qrcd"]
 [ext_resource type="PackedScene" uid="uid://46fj3w4t51qs" path="res://SCENES/ui/transition.tscn" id="9_lw8e4"]
 
+[sub_resource type="Gradient" id="Gradient_cpyn2"]
+offsets = PackedFloat32Array(0, 0.99654)
+colors = PackedColorArray(7.89344e-06, 0.8524, 0.805219, 1, 1.34766e-06, 0.684966, 0.999376, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4wml7"]
+gradient = SubResource("Gradient_cpyn2")
+
 [node name="ui_menu" type="Node2D"]
 script = ExtResource("1_2676o")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="FONDO DEL NIVEL" type="ParallaxBackground" parent="CanvasLayer"]
+[node name="FONDO DEL NIVEL" type="ParallaxBackground" parent="."]
 follow_viewport_enabled = true
 scroll_offset = Vector2(10, 0)
 scroll_base_scale = Vector2(2, 2)
 
-[node name="Parallax2D" type="Parallax2D" parent="CanvasLayer/FONDO DEL NIVEL"]
+[node name="Parallax2D" type="Parallax2D" parent="FONDO DEL NIVEL"]
 repeat_size = Vector2(1, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/FONDO DEL NIVEL/Parallax2D"]
+[node name="Sprite2D" type="Sprite2D" parent="FONDO DEL NIVEL/Parallax2D"]
 position = Vector2(-9, -3)
-scale = Vector2(0.454167, 0.442593)
-texture = ExtResource("3_5hpi0")
+scale = Vector2(3.37891, 485)
+texture = SubResource("GradientTexture1D_4wml7")
 centered = false
 
-[node name="Parallax2D2" type="Parallax2D" parent="CanvasLayer/FONDO DEL NIVEL"]
+[node name="Parallax2D2" type="Parallax2D" parent="FONDO DEL NIVEL"]
 
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/FONDO DEL NIVEL/Parallax2D2"]
+[node name="Sprite2D" type="Sprite2D" parent="FONDO DEL NIVEL/Parallax2D2"]
 position = Vector2(-440, -546)
 scale = Vector2(0.960417, 1.03241)
 centered = false
 
-[node name="Parallax2D3" type="Parallax2D" parent="CanvasLayer/FONDO DEL NIVEL"]
+[node name="Parallax2D3" type="Parallax2D" parent="FONDO DEL NIVEL"]
 autoscroll = Vector2(100, 0)
 repeat_times = 6
 
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/FONDO DEL NIVEL/Parallax2D3"]
-position = Vector2(1.01627, -9.17439)
+[node name="Sprite2D" type="Sprite2D" parent="FONDO DEL NIVEL/Parallax2D3"]
+position = Vector2(-9.6866, -2.03915)
 rotation = -0.000159756
-scale = Vector2(0.445044, 0.454771)
+scale = Vector2(0.450619, 0.448166)
 texture = ExtResource("4_kpik3")
 centered = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
 anchors_preset = 15
@@ -88,6 +94,7 @@ icon_alignment = 1
 position = Vector2(354, 365)
 
 [node name="Transition" parent="." instance=ExtResource("9_lw8e4")]
+position = Vector2(61, 4)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(424, 238)

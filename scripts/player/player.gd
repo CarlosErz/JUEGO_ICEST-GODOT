@@ -5,6 +5,8 @@ extends CharacterBody2D
 @onready var animated_sprite = $animacion_tibu
 @onready var detecta_caja: RayCast2D = $"dtecta caja"
 @onready var ui = get_tree().current_scene.get_node("GUI")
+@onready var bubble_effect = $BubbleEffect
+@onready var label_dont_have_bubble =  $noSuperBurbuja # Efecto visual de la burbuja (opcional)
 
 # Variables exportadas
 @export var move_speed: float = 200
@@ -16,6 +18,9 @@ extends CharacterBody2D
 @export var fall_gravity_multiplier: float = 1.5  # Gravedad aumentada al caer
 @export var coyote_time_duration: float = 0.1  # Duración del Coyote Time
 @export var jump_buffer_time: float = 0.1  # Tiempo de buffer para el salto
+@export var bubble_duration: float = 5.0  # Duración de la burbuja
+@export var bubble_cooldown: float = 10.0 
+ # Tiempo de recarga de la burbuja
 
 # Variables internas
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity") * gravity_scale
@@ -31,6 +36,11 @@ var coyote_time_timer: float = 0.0
 var jump_buffer_timer: float = 0.0
 var is_alive: bool = true  # Variable para controlar si el personaje está vivo
 
+# Variables para la burbuja
+var has_bubble_power: bool = false  # Indica si el jugador puede usar la burbuja
+var has_bubble: bool = false  # Indica si la burbuja está activa
+var cooldown_timer: float = 0.0  # Temporizador de recarga
+
 func _physics_process(delta):
 	if is_alive:
 		handle_movement(delta)
@@ -38,6 +48,9 @@ func _physics_process(delta):
 		handle_flip()
 		update_animations()
 		move_and_slide()
+		handle_drop_down()
+
+		handle_bubble(delta)  # Controlar la burbuja
 
 		if detecta_caja.is_colliding():
 			var caja = detecta_caja.get_collider()
@@ -149,43 +162,79 @@ func push_caja(caja):
 		caja.velocity = direction * push_force
 		caja.move_and_slide()
 
-func take_damage(amount, source_position):
-	if not is_alive or is_invincible:
+# --- BURBUJA ---
+func activate_bubble():
+	if not has_bubble_power or cooldown_timer > 0 or has_bubble:
 		return
-
-	health -= amount
-
-	if ui:
-		ui.actualizar_vida(health)	
-		animated_sprite.play("MUERTE")
-	else:
-		print("Error: No se encontró CanvasLayer")
-	animated_sprite.modulate = Color(1, 0, 0)
-	var knockback_direction = (global_position - source_position).normalized()
-	velocity = knockback_direction * 600
+	has_bubble = true
 	is_invincible = true
+	animated_sprite.modulate = Color(0.5, 0.5, 1)  # Cambiar color a azul claro
+
+	if bubble_effect:
+		bubble_effect.show()
+		
+
+func handle_bubble(delta):
+	if cooldown_timer > 0:
+		cooldown_timer -= delta
+
+func deactivate_bubble():
+	has_bubble = false
+	is_invincible = false
+	cooldown_timer = bubble_cooldown
+	animated_sprite.modulate = Color(1, 1, 1)  # Restaurar el color original
+
+	if bubble_effect:
+		bubble_effect.hide()
+
+func _input(event):
+	if event.is_action_pressed("activate_bubble"):
+		activate_bubble()
+		 
+func handle_drop_down():
+	# Detectar si el jugador está en un piso unidireccional
+	if Input.is_action_pressed("drop_down") and is_on_floor():
+		# Temporalmente mover al jugador hacia abajo para atravesar el piso
+		global_position.y += 1.5	
+		
+func show_no_bubble_message():
+	label_dont_have_bubble.show()  # Mostrar el mensaje
+	await get_tree().create_timer(2.0).timeout  # Mostrar durante 2 segundos
+	label_dont_have_bubble.hide()  # Ocultar el mensaje
+
+# --- VIDA Y MUERTE ---
+func take_damage(amount, source_position):
+	if not is_alive:
+		return
+	if has_bubble: 
+		deactivate_bubble()
+		var knockback_bubble = (global_position - source_position).normalized()
+		velocity = knockback_bubble * 700 
+		return 
+	health -= amount
+	if ui:
+		ui.actualizar_vida(health)
+	else:
+		print("Error: No se encontró GUI")
+	var knockback = (global_position - source_position).normalized()
+	velocity = knockback * 400
+	is_invincible = true
+	animated_sprite.modulate = Color(1, 0, 0)
 	await invincibility_timer()
 	if health <= 0:
 		die()
 
-# Función asincrónica para invulnerabilidad
-func invincibility_timer() -> void:
-	await get_tree().create_timer(0.2).timeout
-	animated_sprite.modulate = Color(1, 1, 1)
-	await get_tree().create_timer(0.8).timeout
-	is_invincible = false
-
 func die():
 	is_alive = false
 	animated_sprite.play("MUERTE")
-	# Deshabilitar el movimiento y reiniciar el nivel tras un corto delay
 	set_physics_process(false)
 	restart_game()
-
-# Reiniciar el nivel
-func restart_game():
-	await get_tree().create_timer(0.1).timeout  # Esperar 1.5 segundos antes de reiniciar
-	get_tree().reload_current_scene()
+	
+func invincibility_timer() -> void:
+	await get_tree().create_timer(0.2).timeout
+	animated_sprite.modulate = Color(1, 1, 1)
+	await get_tree().create_timer(0.1).timeout
+	is_invincible = false
 
 func add_points(amount):
 	if not is_alive:
@@ -197,5 +246,11 @@ func add_points(amount):
 	await get_tree().create_timer(0.5).timeout
 	animated_sprite.modulate = Color(1, 1, 1)  # Volver al color normal
 
+func restart_game():
+	await get_tree().create_timer(0.1).timeout
+	get_tree().reload_current_scene()
+
 func _ready():
 	add_to_group("player")
+	if bubble_effect:
+		bubble_effect.hide()

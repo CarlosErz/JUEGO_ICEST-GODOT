@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var damage: int = 2  # Daño que causará el SpinBlade
+@export var damage: int = 1  # Daño que causará el SpinBlade
 @export var damage_interval: float = 0.1  # Intervalo de tiempo entre cada daño
 
 # Referencia al sprite del SpinBlade (opcional para animaciones)
