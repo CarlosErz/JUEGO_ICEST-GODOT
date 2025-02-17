@@ -1,10 +1,14 @@
 class_name TibuPlayer
 extends CharacterBody2D
 
+# Señal para indicar que el jugador ha muerto
+signal player_died
+
 # Nodos
 @onready var animated_sprite = $animacion_tibu
 @onready var detecta_caja: RayCast2D = $"dtecta caja"
 @onready var ui = get_tree().current_scene.get_node("GUI")
+@onready var ui_reset = get_tree().current_scene.get_node("GUI_RESET_GAME")
 @onready var bubble_effect = $BubbleEffect
 @onready var label_dont_have_bubble =  $noSuperBurbuja # Efecto visual de la burbuja (opcional)
 
@@ -40,6 +44,7 @@ var is_alive: bool = true  # Variable para controlar si el personaje está vivo
 var has_bubble_power: bool = false  # Indica si el jugador puede usar la burbuja
 var has_bubble: bool = false  # Indica si la burbuja está activa
 var cooldown_timer: float = 0.0  # Temporizador de recarga
+var bubble_count: int = 0  # Contador de burbujas obtenidas
 
 func _physics_process(delta):
 	if is_alive:
@@ -172,11 +177,16 @@ func activate_bubble():
 
 	if bubble_effect:
 		bubble_effect.show()
+	bubble_count -= 1
+	if ui: 
+		ui.update_bubble_count(bubble_count)
+	
 		
 
 func handle_bubble(delta):
 	if cooldown_timer > 0:
 		cooldown_timer -= delta
+		
 
 func deactivate_bubble():
 	has_bubble = false
@@ -189,6 +199,13 @@ func deactivate_bubble():
 
 func _input(event):
 	if event.is_action_pressed("activate_bubble"):
+		if bubble_count <= 0:
+			# Mostrar el mensaje de "No tienes burbujas"
+			label_dont_have_bubble.show()
+			# Esperar 2 segundos antes de ocultar el mensaje
+			await get_tree().create_timer(1.0).timeout
+			label_dont_have_bubble.hide()
+			return  # Salir del método si no hay burbujas disponibles
 		activate_bubble()
 		 
 func handle_drop_down():
@@ -210,6 +227,7 @@ func take_damage(amount, source_position):
 		deactivate_bubble()
 		var knockback_bubble = (global_position - source_position).normalized()
 		velocity = knockback_bubble * 700 
+		
 		return 
 	health -= amount
 	if ui:
@@ -228,6 +246,7 @@ func die():
 	is_alive = false
 	animated_sprite.play("MUERTE")
 	set_physics_process(false)
+	emit_signal("player_died")  # Emitir la señal de muerte
 	restart_game()
 	
 func invincibility_timer() -> void:
@@ -242,13 +261,18 @@ func add_points(amount):
 
 	score += amount
 	ui.points(score)
+	ui_reset.update_score(score)
 	animated_sprite.modulate = Color(1, 1, 0)  # Cambiar a amarillo temporalmente
 	await get_tree().create_timer(0.5).timeout
 	animated_sprite.modulate = Color(1, 1, 1)  # Volver al color normal
 
+func add_bubble():
+	bubble_count += 1
+	if ui:
+		ui.update_bubble_count(bubble_count)
+
 func restart_game():
 	await get_tree().create_timer(0.1).timeout
-	get_tree().reload_current_scene()
 
 func _ready():
 	add_to_group("player")

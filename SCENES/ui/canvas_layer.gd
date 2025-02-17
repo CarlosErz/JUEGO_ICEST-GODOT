@@ -4,6 +4,7 @@ extends CanvasLayer
 @onready var points_label = $Control/puntos
 @onready var canva_red = $Control/rojo 
 @onready var level_label = $Control/Label
+@onready var burbuja_label = $Control/BURBUJAS
  # Asegúrate de que sea un ColorRect
 
 var parpadeo_activo = false
@@ -35,6 +36,7 @@ func levels(level):
 func get_level(level):
 	if level_label: 
 		level_label.text = str("NIVEL:",level)
-	
-		
-	
+
+func update_bubble_count(count):
+	if burbuja_label:
+		burbuja_label.text = str("X", count)

@@ -1,13 +1,16 @@
-[gd_scene load_steps=11 format=3 uid="uid://qlmruj6clx46"]
+[gd_scene load_steps=15 format=3 uid="uid://qlmruj6clx46"]
 
 [ext_resource type="Script" path="res://scripts/systems/level_manager.gd" id="1_3ad68"]
 [ext_resource type="PackedScene" uid="uid://x4yei2onj14" path="res://SCENES/levels/Level1.tscn" id="1_jxsnx"]
 [ext_resource type="PackedScene" uid="uid://46fj3w4t51qs" path="res://SCENES/ui/transition.tscn" id="1_o8hpl"]
+[ext_resource type="Script" path="res://scripts/ui/game.gd" id="1_r7sl7"]
 [ext_resource type="Script" path="res://SCENES/ui/canvas_layer.gd" id="2_frtvv"]
 [ext_resource type="Texture2D" uid="uid://ch1inbv0pj5ey" path="res://assets/sprites/CASCO.png" id="5_2qjtr"]
 [ext_resource type="PackedScene" uid="uid://ccqoxqinccvii" path="res://SCENES/characters/PLAYER.tscn" id="5_j35dx"]
 [ext_resource type="Texture2D" uid="uid://cmm233atj16a8" path="res://assets/sprites/CORAZON.png" id="6_boq15"]
 [ext_resource type="Texture2D" uid="uid://vvs6egxsbhc" path="res://assets/sprites/MENU.png" id="7_tqc06"]
+[ext_resource type="Texture2D" uid="uid://kts6adfikfu7" path="res://assets/sprites/BURBUJA_HABILITY.png" id="9_nihrt"]
+[ext_resource type="Script" path="res://SCENES/ui/gui_reset_game.gd" id="11_u0dap"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_s1f3b"]
 font_size = 20
@@ -15,10 +18,13 @@ font_size = 20
 [sub_resource type="LabelSettings" id="LabelSettings_h726a"]
 font_size = 20
 
+[sub_resource type="LabelSettings" id="LabelSettings_anh1d"]
+line_spacing = 20.0
+
 [node name="GAME" type="Node2D"]
+script = ExtResource("1_r7sl7")
 
 [node name="Transition" parent="." instance=ExtResource("1_o8hpl")]
-visible = false
 z_index = 100
 position = Vector2(-2611, -359)
 
@@ -93,6 +99,25 @@ offset_bottom = 35.0
 icon = ExtResource("7_tqc06")
 flat = true
 
+[node name="BURBUJAS" type="Label" parent="GUI/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.11
+anchor_top = 0.936
+anchor_right = 0.11
+anchor_bottom = 0.936
+offset_left = -19.94
+offset_top = -11.728
+offset_right = 20.06
+offset_bottom = 11.272
+text = "X0"
+label_settings = SubResource("LabelSettings_anh1d")
+
+[node name="BurbujaHability" type="Sprite2D" parent="GUI/Control"]
+position = Vector2(47.5, 433.5)
+scale = Vector2(0.43, 0.43)
+texture = ExtResource("9_nihrt")
+
 [node name="Label" type="Label" parent="GUI/Control"]
 layout_mode = 0
 offset_left = 21.0
@@ -112,3 +137,43 @@ color = Color(0.193153, 0.193154, 0.193153, 1)
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="settings/COLOR NIVEL"]
 position = Vector2(0, 49.585)
 color = Color(0.0223994, 0.0892036, 0.259781, 1)
+
+[node name="GUI_RESET_GAME" type="CanvasLayer" parent="."]
+visible = false
+script = ExtResource("11_u0dap")
+
+[node name="ColorRect" type="ColorRect" parent="GUI_RESET_GAME"]
+offset_left = -42.0
+offset_top = -20.0
+offset_right = 919.0
+offset_bottom = 502.0
+color = Color(0.0415072, 0.0415072, 0.0415072, 1)
+
+[node name="RestartButton" type="Button" parent="GUI_RESET_GAME"]
+offset_left = 317.0
+offset_top = 176.0
+offset_right = 523.0
+offset_bottom = 229.0
+text = "REINICIAR"
+
+[node name="TEXTO" type="Label" parent="GUI_RESET_GAME"]
+offset_left = 381.0
+offset_top = 248.0
+offset_right = 449.0
+offset_bottom = 271.0
+text = "PUNTAJE
+"
+
+[node name="Sprite2D2" type="Sprite2D" parent="GUI_RESET_GAME"]
+position = Vector2(420, 312)
+scale = Vector2(1.52964, 1.52964)
+texture = ExtResource("5_2qjtr")
+
+[node name="ScoreLabel" type="Label" parent="GUI_RESET_GAME"]
+offset_left = 416.0
+offset_top = 300.0
+offset_right = 456.0
+offset_bottom = 323.0
+text = "0
+"
+horizontal_alignment = 1
