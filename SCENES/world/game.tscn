@@ -125,6 +125,15 @@ offset_right = 80.0
 offset_bottom = 23.0
 text = "NIVEL:0"
 
+[node name="Button2" type="Button" parent="GUI/Control"]
+visible = false
+layout_mode = 0
+offset_left = 220.0
+offset_top = 121.0
+offset_right = 619.0
+offset_bottom = 183.0
+text = "GANASTE MI APA"
+
 [node name="player" parent="." instance=ExtResource("5_j35dx")]
 position = Vector2(-3609, 471)
 
@@ -177,3 +186,11 @@ offset_bottom = 323.0
 text = "0
 "
 horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="GUI_RESET_GAME"]
+visible = false
+offset_left = 305.0
+offset_top = 96.0
+offset_right = 531.0
+offset_bottom = 152.0
+text = "CLICK O PRESIONA LA LETRA \"F\""

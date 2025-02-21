@@ -10,6 +10,10 @@
 [ext_resource type="Texture2D" uid="uid://s2axggbbv575" path="res://assets/sprites/tibu_push.png" id="5_r6hoi"]
 [ext_resource type="Texture2D" uid="uid://kts6adfikfu7" path="res://assets/sprites/BURBUJA_HABILITY.png" id="9_jhksq"]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qbvol"]
+radius = 25.0
+height = 88.0
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_rgons"]
 atlas = ExtResource("2_43dqd")
 region = Rect2(0, 0, 100, 100)
@@ -377,10 +381,6 @@ animations = [{
 "speed": 17.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dew4k"]
-radius = 15.0
-height = 84.0
-
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tic7e"]
 blend_mode = 1
 light_mode = 2
@@ -415,26 +415,25 @@ collision_layer = 2
 collision_mask = 31
 script = ExtResource("1_qdx6a")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(4, 1)
+shape = SubResource("CapsuleShape2D_qbvol")
+metadata/_edit_group_ = true
+
 [node name="animacion_tibu" type="AnimatedSprite2D" parent="."]
 position = Vector2(6, 0)
 sprite_frames = SubResource("SpriteFrames_yndcn")
-animation = &"MUERTE"
-frame_progress = 0.768027
+animation = &"IDEL"
 
-[node name="dtecta caja" type="RayCast2D" parent="."]
+[node name="Detecta_caja" type="RayCast2D" parent="."]
 position = Vector2(6, 0)
-target_position = Vector2(22, 1)
+target_position = Vector2(26, 2)
 collision_mask = 4
 collide_with_areas = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(9, 0)
-shape = SubResource("CapsuleShape2D_dew4k")
-metadata/_edit_group_ = true
-
 [node name="luz object" type="PointLight2D" parent="."]
 material = SubResource("CanvasItemMaterial_tic7e")
-position = Vector2(13, 41)
+position = Vector2(25, 42)
 scale = Vector2(0.852057, 2.32075)
 color = Color(1, 1, 1, 0.584314)
 energy = 0.5
@@ -442,7 +441,7 @@ texture = SubResource("GradientTexture2D_cn67b")
 texture_scale = 50.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(6, 0)
+position = Vector2(13, 1)
 limit_smoothed = true
 position_smoothing_enabled = true
 
@@ -451,7 +450,7 @@ modulate = Color(1, 1, 1, 0.243137)
 self_modulate = Color(0.619608, 0.619608, 0.619608, 0.505882)
 z_index = 8
 material = SubResource("CanvasItemMaterial_86jlc")
-position = Vector2(7, 34)
+position = Vector2(10, 35)
 scale = Vector2(4.40312, 4.23)
 texture = SubResource("GradientTexture2D_buus7")
 

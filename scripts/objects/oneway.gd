@@ -8,7 +8,3 @@ func _ready() -> void:
 	if collision_shape:
 		if collision_shape.shape is RectangleShape2D or collision_shape.shape is ConvexPolygonShape2D:
 			collision_shape.one_way_collision = true # Margen opcional para facilitar el paso hacia abajo
-
-# Lógica adicional según lo que necesites
-func _process(delta: float) -> void:
-	pass

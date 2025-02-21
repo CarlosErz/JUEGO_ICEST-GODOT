@@ -3,7 +3,8 @@ extends Node2D
 # Ruta a la carpeta de niveles
 var niveles_folder = "res://SCENES/levels/"
 @onready var transition_scene = preload("res://SCENES/ui/transition.tscn") 
-@onready var ui = get_tree().current_scene.get_node("GUI") # Escena de transición
+@onready var ui = get_tree().current_scene.get_node("GUI")
+@onready var win_label = $"../GUI/Control/Button2"  # Escena de transición
 
 # Lista de nombres de archivos de niveles
 var niveles = ["Level0.tscn","Level1.tscn", "Level2.tscn"]  # Agrega más niveles aquí
@@ -76,8 +77,10 @@ func cambiar_nivel(indice):
 func siguiente_nivel():
 	if nivel_actual + 1 < niveles.size():
 		cambiar_nivel(nivel_actual+1)
+		win_label.visible = false
 	else:
 		print("¡Has completado todos los niveles!")
+		win_label.visible = true
 
 # Reiniciar el nivel actual
 func reiniciar_nivel():
