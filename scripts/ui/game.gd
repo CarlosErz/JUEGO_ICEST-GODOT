@@ -19,6 +19,3 @@ func _on_player_died():
 	# Show the reset GUI and hide the player GUI when the player dies
 	reset_game.visible = true
 	jugador_start.visible = false
-
-func _process(delta: float) -> void:
-	pass

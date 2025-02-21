@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://dya80oi4k4gi0"]
+[gd_scene load_steps=11 format=3 uid="uid://dya80oi4k4gi0"]
 
 [ext_resource type="Script" path="res://scripts/ui/star_menu.gd" id="1_2676o"]
+[ext_resource type="PackedScene" uid="uid://ccqoxqinccvii" path="res://SCENES/characters/PLAYER.tscn" id="2_81y5u"]
 [ext_resource type="Texture2D" uid="uid://deccx3uappssy" path="res://bg/layers/layers2/ground_3.png" id="4_kpik3"]
 [ext_resource type="Texture2D" uid="uid://ovkyiatfq4hg" path="res://assets/sprites/UI/image 1.png" id="5_xf56w"]
 [ext_resource type="Texture2D" uid="uid://72h5ttqmqixo" path="res://assets/sprites/UI/PLAY.png" id="6_3r4d4"]
@@ -49,6 +50,9 @@ rotation = -0.000159756
 scale = Vector2(0.450619, 0.448166)
 texture = ExtResource("4_kpik3")
 centered = false
+
+[node name="player" parent="." instance=ExtResource("2_81y5u")]
+position = Vector2(348, 308)
 
 [node name="GUI" type="CanvasLayer" parent="."]
 

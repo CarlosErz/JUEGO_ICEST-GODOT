@@ -57,5 +57,5 @@ func _on_damage_timer_timeout():
 
 # Lógica adicional (opcional)
 # Aquí puedes añadir rotaciones o animaciones para el SpinBlade si es necesario.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	spinblade_sprite.play("spinblade")  # Ejemplo de animación

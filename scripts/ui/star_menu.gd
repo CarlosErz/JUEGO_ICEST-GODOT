@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var button_start = $CanvasLayer/VBoxContainer/Button  # Referencia al botón
+@onready var button_start = $GUI/VBoxContainer/Button  # Referencia al botón
 @onready var transition_scene = preload("res://SCENES/ui/transition.tscn")  # Cargar la escena de transición
 
 func _ready() -> void:

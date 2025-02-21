@@ -33,7 +33,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_akem0"]
-size = Vector2(39, 9)
+size = Vector2(26, 9)
 
 [node name="Node2D" type="Node2D"]
 
@@ -48,7 +48,8 @@ position = Vector2(-2, -9)
 scale = Vector2(1.66406, 1.66406)
 sprite_frames = SubResource("SpriteFrames_5q2pl")
 animation = &"SHOW_PINCHOS"
-frame_progress = 0.0762178
+frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spikes"]
+position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_akem0")
